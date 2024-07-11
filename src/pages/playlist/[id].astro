@@ -1,0 +1,47 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { allPlaylists, songs } from "@/lib/data";
+
+const { id } = Astro.params;
+
+const playList = allPlaylists.find((playlist) => playlist.id === id);
+const playListSong = songs.filter((song) => song.albumId === playList?.albumId);
+---
+
+<Layout title=`Lista ${playList?.title}`>
+  <div
+    id="playlist-container"
+    class="relative bg-zinc-800 flex flex-col h-full overflow-x-hidden"
+    transition:name=`playlist ${id} container`
+  >
+    <header class="flex flex-row gap-8 p-4">
+      <picture class="aspect-square size-60 flex-none shadow-lg">
+        <img
+          class="rounded-lg"
+          src={playList?.cover}
+          alt={playList?.title}
+          transition:name=`platlist ${id} image`
+        />
+      </picture>
+
+      <div class="flex flex-col justify-between truncate py-4">
+        <div>
+          <h2 class="flex flex-1 items-end opacity-50">Playlist</h2>
+          <h1 class="text-6xl" transition:name=`playlist ${id} title`>
+            {playList?.title}
+          </h1>
+        </div>
+
+        <div class="opacity-50 flex flex-col">
+          <span transition:name=`playlist ${playList?.id} artists`>
+            {playList?.artists.join(", ")}
+          </span>
+
+          <span>
+            {playListSong.length} canciones
+          </span>
+        </div>
+      </div>
+    </header>
+  </div>
+</Layout>

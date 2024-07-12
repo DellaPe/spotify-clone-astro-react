@@ -24,14 +24,14 @@ const { title } = Astro.props;
 	<body>
 		<div id="app" class="relative h-screen p-2 gap-2 text-white">
 			<aside class="[grid-area:aside] flex flex-col overflow-y-auto">
-				<AsideMenu />
+				<AsideMenu transition:name="media-player" transition:persist />
 			</aside>
 
 			<main class="[grid-area:main] rounded-lg bg-zinc-800 overflow-y-auto">
 				<slot />
 			</main>
 
-			<footer class="[grid-area:player] min-h-[100px]">
+			<footer class="[grid-area:player] min-h-[60px]">
 				<Player client:load transition:name="media-player" transition:persist />
 			</footer>
 		</div>
